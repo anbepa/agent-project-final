@@ -7,10 +7,19 @@ class GeminiService {
 
   async generarPasos(prompt) {
     const model = this.client.getGenerativeModel({ model: this.modelName });
-    const result = await model.generateContent(`Convierte este prompt en pasos para Playwright MCP en JSON:\n"${prompt}"`);
-    const text = (await result.response).text();
+    const result = await model.generateContent(
+      `Convierte este prompt en pasos para Playwright MCP en JSON:\n"${prompt}"`
+    );
+    let text = (await result.response).text();
+
+    // Extraer JSON incluso si viene envuelto en un bloque de codigo
+    const match = text.match(/```(?:json)?\s*([\s\S]*?)\s*```/i);
+    if (match) {
+      text = match[1];
+    }
+
     try {
-      return JSON.parse(text);
+      return JSON.parse(text.trim());
     } catch (err) {
       console.error('Parse error', err);
       return [
