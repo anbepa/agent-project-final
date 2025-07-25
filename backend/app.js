@@ -3,12 +3,14 @@ const express = require('express');
 const http = require('http');
 const { Server } = require('socket.io');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const GeminiService = require('./services/geminiService');
 const mcpAgent = require('./utils/mcpAgent');
 const Streamer = require('./utils/streamer');
 const createExecuteRoute = require('./routes/execute');
 
 const app = express();
+app.use(cors());
 app.use(bodyParser.json());
 const server = http.createServer(app);
 const io = new Server(server, { cors: { origin: '*' } });
