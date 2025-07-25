@@ -1,0 +1,10 @@
+<div class="container"><div class="chat-window">
+  <div *ngFor="let msg of messages" class="chat-message" [ngClass]="msg.sender">
+    <span *ngIf="msg.text">{{msg.sender==='user'?'Tú':'Agente'}}: {{msg.text}}</span>
+    <img *ngIf="msg.screenshot" [src]="msg.screenshot" class="screenshot"/>
+  </div>
+  <div class="input-bar"><input [(ngModel)]="prompt" (keyup.enter)="send()" placeholder="Escribe aquí..."/><button (click)="send()">Enviar</button></div>
+</div><div class="stream-window">
+  <h3>Vista en vivo</h3>
+  <img *ngIf="screenshot" [src]="screenshot" class="stream-img"/>
+</div></div>
