@@ -30,7 +30,12 @@ module.exports = function({ io, geminiService, mcpAgent, streamer }) {
 };
 
 function describeStep(step) {
-  if (step.action === 'navigate' || step.type === 'navigate') {
+  if (
+    step.action === 'navigate' ||
+    step.type === 'navigate' ||
+    step.action === 'goto' ||
+    step.type === 'goto'
+  ) {
     return `Navegar a ${step.url || step.action.url}`;
   } else if (step.action === 'click' || step.type === 'click') {
     return `Hacer clic en ${step.selector || step.action.selector}`;
