@@ -27,7 +27,12 @@ class Streamer {
 
   async executeStep(step) {
     if (!this.page) return;
-    if (step.action === 'navigate' || step.type === 'navigate') {
+    if (
+      step.action === 'navigate' ||
+      step.type === 'navigate' ||
+      step.action === 'goto' ||
+      step.type === 'goto'
+    ) {
       await this.page.goto(step.url || step.action.url);
     } else if (step.action === 'click' || step.type === 'click') {
       await this.page.click(step.selector || step.action.selector);
