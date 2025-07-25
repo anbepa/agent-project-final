@@ -8,7 +8,10 @@ class Streamer {
   }
 
   async start() {
-    const context = await chromium.launchPersistentContext('./profile', { headless: false });
+    // Ejecutar el navegador en modo headless para evitar que se abra una ventana
+    const context = await chromium.launchPersistentContext('./profile', {
+      headless: true
+    });
     const pages = context.pages();
     this.page = pages.length > 0 ? pages[0] : await context.newPage();
     this.interval = setInterval(async () => {
